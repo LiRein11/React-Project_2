@@ -6,15 +6,19 @@ import ErrorMessage from '../errorMessage';
 
 export default class RandomChar extends Component {
 
-  constructor() {
-    super();
-    this.updateChar();
-  }
-
   gotService = new GotService();
   state = {
     char: {},
     loading: true
+  }
+
+  componentDidMount() {
+    this.updateChar();
+    this.timerId = setInterval(this.updateChar, 5000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerId);
   }
 
   onCharLoaded = (char) => {
@@ -32,7 +36,8 @@ export default class RandomChar extends Component {
     })
   }
 
-  updateChar() {
+  updateChar = () => {
+    console.log('update')
     const id = Math.floor(Math.random() * 140 + 25); // Получаем рандомного персонажа начиная с 25 и заканчивая 140 
     this.gotService.getCharacter(id) // Возвращает промис, поэтому нужно обработать
       .then(this.onCharLoaded)
@@ -58,6 +63,7 @@ export default class RandomChar extends Component {
 
 const View = ({ char }) => {
   const { name, gender, born, died, culture } = char;
+  
   return (
     <>
       <h4>Random Character: {name}</h4>
@@ -72,7 +78,7 @@ const View = ({ char }) => {
         </li>
         <li className="list-group-item d-flex justify-content-between">
           <span className="term">Died </span>
-          <span>{died}</span>
+          <span className='bbb'>{died}</span>
         </li>
         <li className="list-group-item d-flex justify-content-between">
           <span className="term">Culture </span>

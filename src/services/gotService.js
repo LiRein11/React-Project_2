@@ -41,6 +41,18 @@ export default class GotService {
   }
 
   _transformCharacter(char) {
+    if (!char.gender) {
+      char.gender = 'no data'
+    }
+    if (!char.born) {
+      char.born = 'no data'
+    }
+    if (!char.died) {
+      char.died = 'no data'
+    }
+    if (!char.culture) {
+      char.culture = 'no data'
+    }
     return {
       name: char.name,
       gender: char.gender,
