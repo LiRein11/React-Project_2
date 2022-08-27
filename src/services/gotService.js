@@ -3,7 +3,7 @@ export default class GotService {
     this._apiBase = 'https://anapioficeandfire.com/api';
   }
 
-  async getResourse(url) {
+  getResourse = async (url) => {
     const res = await fetch(`${this._apiBase}${url}`);
 
     if (!res.ok) {
@@ -13,31 +13,36 @@ export default class GotService {
     return await res.json();
   }
 
-  async getAllCharacters() {
+  getAllCharacters = async () => {
     const res = await this.getResourse(`/characters?page=5&pageSize=10`);
     return res.map(this._transformCharacter) // Используется метод мэп, тк работа происходит с массивом (в метод мэп всегда передается колбек функция)
   }
-  async getCharacter(id) {
+  getCharacter = async (id) => {
     const character = await this.getResourse(`/characters/${id}`);
     return this._transformCharacter(character); // Приходит объект, поэтому используем без методов массивов
   }
 
-  async getAllBooks() {
+  getAllBooks = async () => {
     const res = await this.getResourse(`/books/`);
     return res.map(this._transformBook)
   }
-  async getBook(id) {
+  getBook = async (id) => {
     const book = await this.getResourse(`/books/${id}`);
     return this._transformBook(book);
   }
 
-  async getAllHouses() {
+  getAllHouses = async () => {
     const res = await this.getResourse(`/houses/`);
     return res.map(this._transformHouse)
   }
-  async getHouse(id) {
+  getHouse = async (id) => {
     const house = await this.getResourse(`/houses/${id}`);
     return this._transformHouse(house);
+  }
+
+  _extractId = (item) => {
+    const idRegExp = /\/([0-9]*)$/;
+    return item.url.match(idRegExp)[1];
   }
 
   _transformCharacter(char) {

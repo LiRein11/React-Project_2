@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
 import ItemDetails, { Field } from '../itemDetails';
 import ItemList from '../itemList';
-import './characterPage.css';
+import './housePage.css';
 import ErrorMessage from '../errorMessage';
 import GotService from '../../services/gotService';
 import RowBlock from '../rowBlock';
 
-export default class CharacterPage extends Component {
+export default class HousePage extends Component {
   gotService = new GotService();
 
   state = {
-    selectedChar: 130,
+    selectedHouse: 130,
     error: false
   }
 
   onItemSelected = (id) => {
     this.setState({
-      selectedChar: id
+      selectedHouse: id
     })
   }
 
@@ -35,24 +35,25 @@ export default class CharacterPage extends Component {
     const itemList = (
       <ItemList
         onItemSelected={this.onItemSelected}
-        getData={this.gotService.getAllCharacters}
-        renderItem={({ gender, name }) => `${name} (${gender})`} />
+        getData={this.gotService.getAllHouses}
+        renderItem={({ name }) => `${name}`} />
     ) // Выносим для удобства, чтобы не было копипаста в будущем
 
-    const charDetails = (
-      <ItemDetails 
-      itemId={this.state.selectedChar}
-      getData={this.gotService.getCharacter}
+    const houseDetails = (
+      <ItemDetails
+        itemId={this.state.selectedHouse}
+        getData={this.gotService.getHouse}
       >
-        <Field field='gender' label='Gender' />
-        <Field field='born' label='Born' />
-        <Field field='died' label='Died' />
-        <Field field='culture' label='Culture' />
+        <Field field='region' label='Region' />
+        <Field field='words' label='Words' />
+        <Field field='titles' label='Titles' />
+        <Field field='overlord' label='Overlord' />
+        <Field field='ancestralWeapons' label='AncestralWeapons' />
       </ItemDetails>
     ) // Выносим для удобства, чтобы не было копипаста в будущем
 
     return (
-      <RowBlock left={itemList} right={charDetails} />
+      <RowBlock left={itemList} right={houseDetails} />
     )
   }
 }
