@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
 import ItemDetails, { Field } from '../itemDetails';
 import ItemList from '../itemList';
-import './bookPage.css';
 import ErrorMessage from '../errorMessage';
 import GotService from '../../services/gotService';
 import RowBlock from '../rowBlock';
 
-export default class BookPage extends Component {
+export default class HousePage extends Component {
   gotService = new GotService();
 
   state = {
-    selectedBook: 2,
+    selectedHouse: 130,
     error: false
   }
 
   onItemSelected = (id) => {
     this.setState({
-      selectedBook: id
+      selectedHouse: id
     })
   }
 
@@ -35,23 +34,25 @@ export default class BookPage extends Component {
     const itemList = (
       <ItemList
         onItemSelected={this.onItemSelected}
-        getData={this.gotService.getAllBooks}
+        getData={this.gotService.getAllHouses}
         renderItem={({ name }) => `${name}`} />
     ) // Выносим для удобства, чтобы не было копипаста в будущем
 
-    const bookDetails = (
+    const itemDetails = (
       <ItemDetails
-        itemId={this.state.selectedBook}
-        getData={this.gotService.getBook}
+        itemId={this.state.selectedHouse}
+        getData={this.gotService.getHouse}
       >
-        <Field field='numberOfPage' label='NumberOfPage' />
-        <Field field='publiser' label='Publiser' />
-        <Field field='released' label='Released' />
+        <Field field='region' label='Region' />
+        <Field field='words' label='Words' />
+        <Field field='titles' label='Titles' />
+        <Field field='overlord' label='Overlord' />
+        <Field field='ancestralWeapons' label='AncestralWeapons' />
       </ItemDetails>
     ) // Выносим для удобства, чтобы не было копипаста в будущем
 
     return (
-      <RowBlock left={itemList} right={bookDetails} />
+      <RowBlock left={itemList} right={itemDetails} />
     )
   }
 }

@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import './itemList.css';
 import Spinner from '../spinner';
 export default class ItemList extends Component {
-
+  
   state = {
     itemList: null
   }
-
+  
   componentDidMount() {
     const { getData } = this.props // Для того, чтобы не копипастить код для создания книг или домов, а превратить это в создание данных на основе создания персонажей
 
@@ -27,12 +27,12 @@ export default class ItemList extends Component {
         <li
           key={id}
           className="list-group-item"
-          onClick={() => this.props.onItemSelected(id)}>
+          onClick={(id) => this.props.onItemSelected(id)}> 
           {label}
         </li>
       )
     })
-  }
+  } // Проблема
 
   render() {
     const { itemList } = this.state;

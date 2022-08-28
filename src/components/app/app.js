@@ -3,15 +3,15 @@ import { Col, Row, Container } from 'reactstrap';
 import Header from '../header';
 import RandomChar from '../randomChar';
 import ErrorMessage from '../errorMessage';
-import CharacterPage from '../characterPage';
-import HousePage from '../housePage';
-import BookPage from '../bookPage';
-// import CharDetails from '../charDetails';
+import { CharacterPage, HousePage, BookPage, BooksItem } from '../pages';
+// import HousePage from '../pages';
+// import BookPage from '../pages';
+// import ItemDetails from '../charDetails';
 // import ItemList from '../itemList';
 import GotService from '../../services/gotService';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 import './app.css';
-
 
 export default class App extends Component {
   gotService = new GotService();
@@ -44,46 +44,36 @@ export default class App extends Component {
     }
 
     return (
-      <>
-        <Container>
-          <Header />
-        </Container>
-        <Container>
-          <Row>
-            <Col lg={{ size: 5, offset: 0 }}>
-              {char}
-              <button
-                className='btn-toggle'
-                onClick={this.toggleRandomChar}>Toggle char</button>
-            </Col>
-          </Row>
-          <CharacterPage />
-          <HousePage/>
-          <BookPage/>
-          {/* <Row>
-            <Col md='6'>
-              <ItemList
-                onItemSelected={this.onItemSelected}
-                getData={this.gotService.getAllBooks}
-                renderItem={(item) => item.name} />
-            </Col>
-            <Col md='6'>
-              <CharDetails charId={this.state.selectedChar} />
-            </Col>
-          </Row>
-          <Row>
-            <Col md='6'>
-              <ItemList
-                onItemSelected={this.onItemSelected}
-                getData={this.gotService.getAllHouses}
-                renderItem={(item) => item.name} />
-            </Col>
-            <Col md='6'>
-              <CharDetails charId={this.state.selectedChar} />
-            </Col>
-          </Row> */}
-        </Container>
-      </>
+      <Router>
+        <div className='app'>
+          <Container>
+            <Header />
+          </Container>
+          <Container>
+            <Row>
+              <Col lg={{ size: 5, offset: 0 }}>
+                {char}
+                <button
+                  className='btn-toggle'
+                  onClick={this.toggleRandomChar}>Toggle char</button>
+              </Col>
+            </Row>
+            <Routes>
+              <Route path='/' element={ <h1>Welcome to GOT DB</h1>} />
+              <Route path='/characters' element={<CharacterPage />} />
+              <Route path='/houses' element={<HousePage />} />
+              <Route path='/books' element={<BookPage />} />
+              {/* <Route path='/books/:id' element={
+                () => {
+                  let params = useParams();
+                   return <BooksItem bookId={params.id} />
+                }
+              } /> */}
+            </Routes>
+
+          </Container>
+        </div>
+      </Router>
     )
   };
 };
