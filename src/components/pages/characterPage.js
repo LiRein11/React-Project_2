@@ -33,7 +33,7 @@ export default class CharacterPage extends Component {
 
     const itemList = (
       <ItemList
-        onItemSelected={console.log(this.onItemSelected)}
+        onItemSelected={this.onItemSelected}
         getData={this.gotService.getAllCharacters}
         renderItem={({ gender, name }) => `${name} (${gender})`} />
     ) // Выносим для удобства, чтобы не было копипаста в будущем

@@ -3,7 +3,7 @@ import { Col, Row, Container } from 'reactstrap';
 import Header from '../header';
 import RandomChar from '../randomChar';
 import ErrorMessage from '../errorMessage';
-import { CharacterPage, HousePage, BookPage, BooksItem } from '../pages';
+import { CharacterPage, HousePage, BookPage } from '../pages';
 // import HousePage from '../pages';
 // import BookPage from '../pages';
 // import ItemDetails from '../charDetails';
